@@ -11,23 +11,33 @@ const firstPromise = new Promise((resolve, reject) => {
 });
 
 const secondPromise = new Promise((resolve, reject) => {
+  let click = false;
+
   document.addEventListener('click', (e) => {
-    resolve('Second promise was resolved');
+    if (!click) {
+      click = true;
+      resolve('Second promise was resolved');
+    }
   });
 
   document.addEventListener('contextmenu', (e) => {
-    resolve('Second promise was resolved');
+    if (!click) {
+      click = true;
+      resolve('Second promise was resolved');
+    }
   });
 });
 
 const thirdPromise = new Promise((resolve) => {
   let leftClick = false;
   let rightClick = false;
+  let click = false;
 
   document.addEventListener('click', () => {
     leftClick = true;
 
-    if (leftClick && rightClick) {
+    if (leftClick && rightClick && !click) {
+      click = true;
       resolve('Third promise was resolved');
     }
   });
@@ -35,7 +45,8 @@ const thirdPromise = new Promise((resolve) => {
   document.addEventListener('contextmenu', () => {
     rightClick = true;
 
-    if (leftClick && rightClick) {
+    if (leftClick && rightClick && !click) {
+      click = true;
       resolve('Third promise was resolved');
     }
   });
@@ -43,12 +54,12 @@ const thirdPromise = new Promise((resolve) => {
 
 firstPromise
   .then((data) => {
-    const succesMessage = document.createElement('div');
+    const successMessage = document.createElement('div');
 
-    succesMessage.textContent = data;
-    succesMessage.setAttribute('data-qa', 'notification');
-    succesMessage.classList.add('success');
-    document.body.append(succesMessage);
+    successMessage.textContent = data;
+    successMessage.setAttribute('data-qa', 'notification');
+    successMessage.classList.add('success');
+    document.body.append(successMessage);
   })
   .catch((error) => {
     const errorMessage = document.createElement('div');
@@ -61,12 +72,12 @@ firstPromise
 
 secondPromise
   .then((data) => {
-    const succesMessage = document.createElement('div');
+    const successMessage = document.createElement('div');
 
-    succesMessage.textContent = data;
-    succesMessage.setAttribute('data-qa', 'notification');
-    succesMessage.classList.add('success');
-    document.body.append(succesMessage);
+    successMessage.textContent = data;
+    successMessage.setAttribute('data-qa', 'notification');
+    successMessage.classList.add('success');
+    document.body.append(successMessage);
   })
   .catch((error) => {
     const errorMessage = document.createElement('div');
@@ -79,12 +90,12 @@ secondPromise
 
 thirdPromise
   .then((data) => {
-    const succesMessage = document.createElement('div');
+    const successMessage = document.createElement('div');
 
-    succesMessage.textContent = data;
-    succesMessage.setAttribute('data-qa', 'notification');
-    succesMessage.classList.add('success');
-    document.body.append(succesMessage);
+    successMessage.textContent = data;
+    successMessage.setAttribute('data-qa', 'notification');
+    successMessage.classList.add('success');
+    document.body.append(successMessage);
   })
   .catch((error) => {
     const errorMessage = document.createElement('div');
